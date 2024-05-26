@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block content %}
+    <h2>Bienvenue</h2>
+    <p>Bienvenue, {{ user.first_name }}! Vous êtes maintenant connecté.</p>
+
+    <h2>Mes Patients</h2>
+    <table class="table patient-table">
+        <thead>
+            <tr>
+                <th>Identifiant</th>
+                <th>Sexe</th>
+                <th>Date de Naissance</th>
+                <th>Hôpital</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr>
+                <td>{{ patient.patient_id }}</td>
+                <td>{{ patient.sex }}</td>
+                <td>{{ patient.birth_date }}</td>
+                <td>{{ patient.hospital }}</td>
+                <td>
+                    <!--<a href="{% url 'read_patient' patient.id %}" class="btn btn-info">Détails</a>
+                    <a href="{% url 'edit_patient' patient.id %}" class="btn btn-warning">Éditer</a>-->
+                    <a href="{% url 'delete_patient_confirm' patient.id %}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce patient ? Cette action est irréversible.');">Supprimer</a>
+                    <a href="{% url 'add_test' patient.id %}" class="btn btn-primary">Ajouter un nouveau Test</a>
+                </td>
+            </tr>
+            <!-- Sous-tableau pour les tests de chaque patient -->
+            <tr>
+                <td colspan="5">
+                    <table class="table test-table">
+                        <thead>
+                            <tr>
+                                <th>Numéro de Série du Kit</th>
+                                <th>Date du Test</th>
+                                <th>Heure du Test</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for test in patient.tests.all %}
+                            <tr>
+                                <td>{{ test.serial_number }}</td>
+                                <td>{{ test.test_date }}</td>
+                                <td>{{ test.test_time }}</td>
+                                <td>
+                                    <a href="{% url 'read_test' test.id %}" class="btn btn-info">Voir le résultat du test</a>
+                                    <a href="{% url 'edit_test' test.id %}" class="btn btn-warning">Éditer (48h après le test)</a>
+                                    <a href="{% url 'delete_test' test.id %}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce test ? Cette action est irréversible.');">Supprimer</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr><td colspan="4">Aucun test trouvé pour ce patient.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<a href="{% url 'add_patient_and_test' %}" class="btn btn-primary">Ajouter un patient</a>
+
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Se déconnecter</button>
+    </form>
+
+
+    
+{% endblock %}

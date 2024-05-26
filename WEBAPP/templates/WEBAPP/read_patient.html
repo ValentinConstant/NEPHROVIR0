@@ -1,0 +1,13 @@
+<!-- templates/WEBAPP/read_patient.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Informations du Patient</h2>
+<ul>
+    <li>ID: {{ patient.patient_id }}</li>
+    <li>Sexe: {{ patient.sex }}</li>
+    <li>Date de Naissance: {{ patient.birth_date }}</li>
+    <li>Hôpital: {{ patient.hospital }}</li>
+</ul>
+<a href="{% url 'add_test' patient.id %}" class="btn btn-primary">Ajouter un Test</a>
+{% endblock %}

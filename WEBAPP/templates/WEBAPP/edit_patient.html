@@ -1,0 +1,11 @@
+<!-- edit_patient.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Modifier les informations du patient</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Mettre à jour</button>
+</form>
+{% endblock %}

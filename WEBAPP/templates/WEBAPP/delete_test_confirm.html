@@ -1,0 +1,12 @@
+<!-- delete_test_confirm.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Confirmer la suppression du test</h1>
+<p>Êtes-vous sûr de vouloir supprimer ce test ? Cette action est irréversible.</p>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Supprimer" />
+</form>
+<a href="{% url 'welcome' %}">Annuler</a>
+{% endblock %}

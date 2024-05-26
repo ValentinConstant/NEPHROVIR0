@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil NEPHROVIR{% endblock %}
+
+{% block content %}
+    <h1>Bienvenue sur NEPHROVIR !</h1>
+    <p>Message d'accueil.</p>
+
+    <div class="container mt-5">
+   
+        <div class="list-group">
+            <a href="{% url 'custom_login' %}" class="list-group-item list-group-item-action">Connexion</a>
+
+            <hr>
+
+            <a href="{% url 'register' %}" class="list-group-item list-group-item-action">Inscription</a>
+            <!-- Ajoutez d'autres liens ou actions ici -->
+        </div>
+    </div>
+{% endblock %}
+
