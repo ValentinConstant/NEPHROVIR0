@@ -16,7 +16,6 @@ class TestForm(forms.ModelForm):
         exclude = ['user', 'patient', 'gen1', 'bio1', 'immuno1', 'distance_svm', 'indice_knn', 'risque']
         widgets = {
             'test_date': forms.DateInput(attrs={'type': 'date'}),
-            'test_time': forms.TimeInput(attrs={'type': 'time'}),
         }
 
     def clean(self):

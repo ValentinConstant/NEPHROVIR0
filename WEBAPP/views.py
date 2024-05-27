@@ -189,15 +189,10 @@ def delete_test(request, test_id):
         return redirect('welcome')
     return render(request, 'WEBAPP/delete_test_confirm.html', {'test': test})
 
-
-
 @login_required
 def read_test(request, test_id):
     test = get_object_or_404(Test, id=test_id, user=request.user)
     return render(request, 'WEBAPP/read_test.html', {'test': test})
-
-
-
 
 def calculate_bio1(BKv_peptide_activation,background):
     import math
@@ -243,8 +238,6 @@ def read_patient(request, patient_id):
     patient = get_object_or_404(Patient, id=patient_id, user=request.user)  # Assurez-vous que seul l'utilisateur qui a créé le patient peut voir les détails
     return render(request, 'WEBAPP/read_patient.html', {'patient': patient})
 
-
-
 @login_required
 def add_patient(request):
     if request.method == 'POST':
@@ -261,26 +254,37 @@ def add_patient(request):
 from django.shortcuts import render, redirect
 from .forms import PatientForm, TestForm
 
+
+# views.py
+from django.shortcuts import render, redirect
+from .models import Patient, Test
+from .forms import PatientForm, TestForm
+
+
+@login_required
 def add_patient_and_test(request):
     if request.method == 'POST':
-        # Traitement du formulaire pour le patient
         patient_form = PatientForm(request.POST)
         test_form = TestForm(request.POST)
         if patient_form.is_valid() and test_form.is_valid():
-            # Création du patient
-            patient = patient_form.save()
-            # Création du test associé au patient
-            test_form.patient = patient  # Associer le test au patient créé
-            test = test_form.save()  # Ne pas sauvegarder immédiatement en base de données
-     
-            # Redirection vers une page de confirmation ou autre
+            patient = patient_form.save(commit=False)
+            patient.user = request.user  # Assign the logged-in user to the patient
+            patient.save()
+            
+            test = test_form.save(commit=False)
+            test.user = request.user  # Assign the logged-in user to the test
+            test.patient = patient
+            calculate_and_save_test(test)  
+            
+            messages.success(request, 'Patient and test information added successfully.')
             return redirect('welcome')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         patient_form = PatientForm()
         test_form = TestForm()
     
     return render(request, 'WEBAPP/add_patient_and_test.html', {'patient_form': patient_form, 'test_form': test_form})
-
 
 @login_required
 def welcome(request):

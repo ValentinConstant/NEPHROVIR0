@@ -1,87 +1,29 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <body>
     <h1>Ajout du patient et son premier test</h1>
-    <form method="post">
+
+    <form method="post" action="{% url 'add_patient_and_test' %}">
         {% csrf_token %}
-        {{ patient_form.as_p }}
-       
-        {% csrf_token %}
-        <hr>
-        <div class="form-row">
-            <div class="col">
-                <label for="id_serial_number">Numéro de Série du Kit:</label>
-                <input type="text" name="serial_number" id="id_serial_number" class="form-control" required>    
-            </div>
-            <div class="col">
-                <label for="id_test_date">Date du test:</label>
-                <input type="date" name="test_date" id="id_test_date" class="form-control" required>
-            </div>
-            <div class="col">
-                <label for="id_test_time">Heure du test:</label>
-                <input type="time" name="test_time" id="id_test_time" class="form-control" required>
-            </div>
-        </div>
+
+        <!-- Patient Information Form -->
+        <fieldset>
+            <legend>Patient Information</legend>
+            {{ patient_form.as_p }}
+        </fieldset>
+
         <hr>
 
-        <div class="form-row">
-            <div class="col">
-                <label for="id_bio_sample_date">Date de l'échantillon Bio:</label>
-                <input type="date" name="bio_sample_date" id="id_bio_sample_date" class="form-control" required>
-            </div>
-            <div class="col">
-                <label for="id_BKv_peptide_activation">BKv_peptide_activation:</label>
-                <input type="number" name="BKv_peptide_activation" id="id_BKv_peptide_activation" class="form-control" required>
-            </div>
-            <div class="col">
-                <label for="id_background">background:</label>
-                <input type="number" name="BKv_background" id="id_background" class="form-control" required>
-            </div>
-        </div>
+        <!-- Test Information Form -->
+        <fieldset>
+            <legend>Test Information</legend>
+            {{ test_form.as_p }}
+        </fieldset>
+
         <hr>
 
-        <div class="form-row">
-            <div class="col-md-3 mb-3">
-                <label for="id_immuno_sample_date">Date de l'échantillon Immuno:</label>
-                <input type="date" name="immuno_sample_date" id="id_immuno_sample_date" class="form-control" required>
-            </div>
-            <div class="col-md-2 mb-2">
-                <label for="id_BK_viral_load">BK_viral_load</label>
-                <input type="number" name="BK_viral_load" id="id_BK_viral_load" class="form-control" required>
-            </div>
-            <div class="col-md-1 mb-1">
-                <label for="id_power_field">^</label>
-                <select name="power_field" id="power-field">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                </select>
-            </div>
-        </div>
-        <hr>
-
-        
-        <div class="form-row">
-            <div class="col">
-                <label for="id_gen_sample_date">Date de l'échantillon Génétique:</label>
-                <input type="date" name="gen_sample_date" id="id_gen_sample_date" class="form-control" required>
-            </div>
-            <div class="col">
-                <label for="id_mismatch_number">Mismatch Number :</label>
-                <input type="number" name="mismatch_number" id="id_mismatch_number" class="form-control" required>
-            </div>
-        </div>
-        <hr>
         <button type="submit">Ajouter le patient et son premier test</button>
     </form>
 </body>
-</html>
-
-    
 {% endblock %}

@@ -2,42 +2,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Détails du Test</h2>
-<div>
 
-    <p><strong>Patient birthdate:</strong> {{ test.patient.birth_date }}</p>
-    <p><strong>Patient sex:</strong> {{ test.patient.sex }}</p>
-
-
-    <p><strong>Numéro de Série du Kit:</strong> {{ test.serial_number }}</p>
-    <p><strong>Date du Test:</strong> {{ test.test_date }}</p>
-    <p><strong>Heure du Test:</strong> {{ test.test_time }}</p>
-
-    <p><strong>bio_sample_date:</strong> {{ test.bio_sample_date }}</p>
-    <p><strong>BKv_peptide_activation:</strong> {{ test.BKv_peptide_activation }}</p>
-    <p><strong>background:</strong> {{ test.background }}</p>
-
-
-    <p><strong>immuno_sample_date:</strong> {{ test.immuno_sample_date }}</p>
-    <p><strong>BK_viral_load:</strong> {{ test.BK_viral_load }}</p>
-
-
-    <p><strong>gen_sample_date:</strong> {{ test.gen_sample_date }}</p>
-    <p><strong>mismatch_number:</strong> {{ test.mismatch_number }}</p>
-
-
-    <p><strong>GEN1:</strong> {{ test.gen1 }}</p>
-    <p><strong>BIO1:</strong> {{ test.bio1 }}</p>
-    <p><strong>IMMUNO1:</strong> {{ test.immuno1 }}</p>
-
-    <p><strong>Distance SVM:</strong> {{ test.distance_svm }}</p>
-    <p><strong>Indice KNN:</strong> {{ test.indice_knn }}</p>
-    <p><strong>Risque:</strong> {{ test.risque }}</p>
+<div class="container">
+    <h1 class="text-center">Résultat du Test</h1>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2>Informations sur le Test</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Numéro de Série du Kit :</strong> {{ test.serial_number }}</p>
+            <p><strong>Date du Test :</strong> {{ test.test_date }}</p>
+            <p><strong>Date de l'Échantillon Bio :</strong> {{ test.bio_sample_date }}</p>
+            <p><strong>BKv Peptide Activation :</strong> {{ test.BKv_peptide_activation }}</p>
+            <p><strong>BKv Background :</strong> {{ test.BKv_background }}</p>
+            <p><strong>Date de l'Échantillon Immuno :</strong> {{ test.immuno_sample_date }}</p>
+            <p><strong>BK Viral Load :</strong> {{ test.BK_viral_load }}</p>
+            <p><strong>Power Field :</strong> {{ test.power_field }}</p>
+            <p><strong>Date de l'Échantillon Génétique :</strong> {{ test.gen_sample_date }}</p>
+            <p><strong>Mismatch Number :</strong> {{ test.mismatch_number }}</p>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{% url 'download_test_pdf' test.id %}" class="btn btn-secondary">Télécharger PDF</a>
+            <a href="{% url 'edit_test' test.id %}" class="btn btn-info">Modifier</a>
+            <a href="{% url 'delete_test' test.id %}" class="btn btn-danger">Supprimer</a>
+        </div>
+    </div>
 </div>
 
-
-<a href="{% url 'download_test_pdf' test.id %}" class="btn btn-secondary">Télécharger PDF</a>
-<a href="{% url 'edit_test' test.id %}" class="btn btn-info">Modifier</a>
-<a href="{% url 'delete_test' test.id %}" class="btn btn-danger">Supprimer</a>
 
 {% endblock %}

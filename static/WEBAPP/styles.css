@@ -1,0 +1,41 @@
+/* styles.css dans myapp/static/myapp/ */
+
+/* Style général pour les tables */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Styles spécifiques pour la table des patients */
+.patient-table {
+    background-color: #f8f9fa;
+    border-collapse: separate;
+    border-spacing: 0 1em; /* Espacement entre les lignes */
+}
+
+.patient-table th,
+.patient-table td {
+    font-size: 16px; /* Taille de police plus grande pour les patients */
+}
+
+/* Styles spécifiques pour la table des tests */
+.test-table {
+    font-family: 'Arial', sans-serif; /* Changement de police */
+    background-color: #e9ecef;
+    color: #495057;
+    border-collapse: separate;
+    border-spacing: 0 0.5em;
+}
+
+.test-table th,
+.test-table td {
+    font-size: 14px; /* Taille de police réduite pour les tests */
+}

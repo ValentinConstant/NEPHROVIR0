@@ -25,15 +25,15 @@ class LotDeTest(models.Model):
         return self.numero_lot
 
 class Test(models.Model):
+    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tests')
-    patient = models.ForeignKey('Patient', on_delete=models.CASCADE, related_name='tests')
+    patient = models.ForeignKey("Patient", related_name='tests', on_delete=models.CASCADE)
     serial_number = models.CharField(max_length=4)
     test_date = models.DateField()
-    test_time = models.TimeField()
 
     bio_sample_date = models.DateField(default=datetime.date.today)
-    BKv_peptide_activation = models.CharField(max_length=3,default='0')
-    background = models.CharField(max_length=3,default='0')
+    BKv_peptide_activation = models.IntegerField(max_length=3,default='0')
+    background = models.IntegerField(max_length=3,default='0')
    
     immuno_sample_date = models.DateField(default=datetime.date.today)
     BK_viral_load = models.IntegerField(default='1')
@@ -86,6 +86,7 @@ class Patient(models.Model):
         ('M', 'Homme'),
         ('F', 'Femme'),
     )
+    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='patients', verbose_name="Utilisateur")
     patient_id = models.CharField(max_length=100, verbose_name="Identifiant du Patient")
     sex = models.CharField(max_length=1, choices=(('M', 'Homme'), ('F', 'Femme')), verbose_name="Sexe")
